@@ -1,9 +1,11 @@
 import 'package:backend_pratice/dashboard/dashboard.dart';
+import 'package:backend_pratice/login/login_with_phone.dart';
 import 'package:backend_pratice/signup/sign_up.dart';
 import 'package:backend_pratice/widgets/Uihelper.dart';
 import 'package:backend_pratice/widgets/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -135,6 +137,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 20),
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginWithPhone()));
+                },
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.orange,
+                  ),
+                  child: Center(child: Text('Login with Phone',style: GoogleFonts.roboto(
+                    fontWeight: FontWeight.bold,
+                  ),)),
+                ),
+              )
             ],
           ),
         ),
