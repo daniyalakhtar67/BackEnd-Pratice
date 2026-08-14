@@ -1,20 +1,22 @@
 // import 'dart:nativewrappers/_internal/vm/lib/async_patch.dart';
 
 import 'package:backend_pratice/login/login_screen.dart';
+import 'package:backend_pratice/widgets/splash_services.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
+   SplashScreen({super.key});
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
+  SplashServices splashServices = SplashServices();
+
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 3),
     vsync: this,
@@ -23,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3),()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen())));
+    splashServices.islogin(context);
   }
 
   @override

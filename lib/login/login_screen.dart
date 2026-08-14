@@ -1,3 +1,4 @@
+import 'package:backend_pratice/dashboard/dashboard.dart';
 import 'package:backend_pratice/signup/sign_up.dart';
 import 'package:backend_pratice/widgets/Uihelper.dart';
 import 'package:backend_pratice/widgets/utils.dart';
@@ -93,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     _auth.signInWithEmailAndPassword(email: c1.text.toString(), password: c2.text.toString()
                     ).then((value){
                       Utils().tomsg(value.user!.email.toString());
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Dashboard()));
                     })
                         .onError((error, stackTrace){
                           Utils().tomsg(error.toString());

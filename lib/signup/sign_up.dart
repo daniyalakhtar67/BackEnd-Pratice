@@ -105,6 +105,8 @@ class _SignUpState extends State<SignUp> {
                       setState(() {
                         isloading = false;
                       });
+                      Utils().tomsg('Account Created successfully');
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
                     }).onError((error, stackTrace) {
                       Utils().tomsg(error.toString());
                       setState(() {
