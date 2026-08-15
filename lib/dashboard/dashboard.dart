@@ -2,6 +2,8 @@ import 'package:backend_pratice/add_post/addpostscreen.dart';
 import 'package:backend_pratice/login/login_screen.dart';
 import 'package:backend_pratice/widgets/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +17,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
+    final ref = FirebaseDatabase.instance.ref('Post');
     final auth = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(
@@ -33,11 +36,32 @@ class _DashboardState extends State<Dashboard> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Addpostscreen()));
-          }, icon: Icon(Icons.add, color: Colors.orange,size: 35,fontWeight: FontWeight.bold,))),
+          Expanded(
+            child: FirebaseAnimatedList(query: ref,
+             defaultChild: Text('Loading'),
+             itemBuilder:( context,  snapshot,  animation,  index){
+              final data = snapshot.value as Map?;
+              if(data==null) return SizedBox.shrink();
+              return ListTile(
+                title: Text(data['text']?.toString() ?? ''), // ?? '' -> due to this my project can't crash
+                subtitle: Text(data['id']?.toString() ?? ''),
+                trailing:Column(
+                  children: [
+                    Text(data['createdAt']?.toString() ?? ''),
+                  ],
+                ),
+              );
+            }),
+          )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.orange,
+          onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Addpostscreen()));
+      },
+      child:Icon(Icons.add,size: 30,color: Colors.white)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

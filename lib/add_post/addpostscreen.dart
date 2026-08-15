@@ -33,7 +33,6 @@ class _AddpostscreenState extends State<Addpostscreen> {
     setState(() => isloading = true);
 
     try {
-      // push() generates a unique key automatically instead of overwriting '1'
       final newPostRef = dbRef.push();
       await newPostRef.set({
         'id': newPostRef.key,
@@ -62,7 +61,6 @@ class _AddpostscreenState extends State<Addpostscreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Post', style: GoogleFonts.roboto()),
-        centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
