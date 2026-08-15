@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "599125428038",
+    "firebase_url": "https://backend-pratice-default-rtdb.firebaseio.com",
     "project_id": "backend-pratice",
     "storage_bucket": "backend-pratice.firebasestorage.app"
   },

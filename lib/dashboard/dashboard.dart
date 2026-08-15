@@ -1,3 +1,4 @@
+import 'package:backend_pratice/add_post/addpostscreen.dart';
 import 'package:backend_pratice/login/login_screen.dart';
 import 'package:backend_pratice/widgets/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,6 +28,14 @@ class _DashboardState extends State<Dashboard> {
               Utils().tomsg(error.toString());
             });
           }, icon: Icon(Icons.login_outlined))
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Addpostscreen()));
+          }, icon: Icon(Icons.add, color: Colors.orange,size: 35,fontWeight: FontWeight.bold,))),
         ],
       ),
     );
