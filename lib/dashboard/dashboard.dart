@@ -19,6 +19,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final ref = FirebaseDatabase.instance.ref('Post');
     final auth = FirebaseAuth.instance;
+    TextEditingController con = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard',style: GoogleFonts.montserrat(fontSize: 20,color: Colors.white)),
@@ -36,22 +37,38 @@ class _DashboardState extends State<Dashboard> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: FirebaseAnimatedList(query: ref,
-             defaultChild: Text('Loading'),
-             itemBuilder:( context,  snapshot,  animation,  index){
-              final data = snapshot.value as Map?;
-              if(data==null) return SizedBox.shrink();
-              return ListTile(
-                title: Text(data['text']?.toString() ?? ''), // ?? '' -> due to this my project can't crash
-                subtitle: Text(data['id']?.toString() ?? ''),
-                trailing:Column(
-                  children: [
-                    Text(data['createdAt']?.toString() ?? ''),
-                  ],
+          Padding(
+            padding: const EdgeInsets.only(right: 20, left: 20),
+            child: TextFormField(
+              controller: con,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                hintText: 'Search',
+                hintStyle: GoogleFonts.roboto(
+                  fontSize: 20,
+                  color: Colors.white38,
                 ),
-              );
-            }),
+                border: UnderlineInputBorder(),
+              ),
+              onChanged: (String value){
+                setState(() {
+
+                });
+              },
+            ),
+          ),
+          SizedBox(height: 30),
+          Expanded(child:FirebaseAnimatedList(
+      defaultChild: Center(child: CircularProgressIndicator(strokeWidth: 3,color: Colors.white)),
+      query: ref,
+          itemBuilder: (context, snapshot, animation, index){
+            final data = snapshot.value as Map?;
+            if(data==null) return SizedBox.shrink();
+            return ListTile(
+              title: Text(data['text']?.toString() ?? ""),
+              subtitle: Text(data['id']?.toString()??""),
+            );
+      }),
           )
         ],
       ),
