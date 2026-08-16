@@ -22,16 +22,13 @@ class _AddpostscreenState extends State<Addpostscreen> {
 
   Future<void> addPost() async {
     final text = con.text.trim();
-
     if (text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Post cannot be empty")),
       );
       return;
     }
-
     setState(() => isloading = true);
-
     try {
       final newPostRef = dbRef.push();
       await newPostRef.set({
