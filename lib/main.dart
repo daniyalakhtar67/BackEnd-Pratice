@@ -1,3 +1,4 @@
+import 'package:backend_pratice/dashboard/C_Json.dart';
 import 'package:backend_pratice/dashboard/ImageApi.dart';
 import 'package:backend_pratice/dashboard/complex_json.dart';
 import 'package:backend_pratice/login/VerifyCode.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.blue
       ),
-      home: ComplexJson(),
+      home: CJson(),
     );
   }
 }
