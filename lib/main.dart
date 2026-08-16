@@ -1,3 +1,4 @@
+import 'package:backend_pratice/dashboard/ImageApi.dart';
 import 'package:backend_pratice/login/VerifyCode.dart';
 import 'package:backend_pratice/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +24,11 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.blue
       ),
-      home: SplashScreen(),
+      home: Imageapi(),
     );
   }
+}
+class Photos{
+  String title, url;
+  Photos({required this.title, required this.url});
 }
