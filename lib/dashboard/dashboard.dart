@@ -30,6 +30,7 @@ class _DashboardState extends State<Dashboard> {
     final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
     var data = jsonDecode(response.body.toString());
     if(response.statusCode==200){
+      getList.clear();
       for(Map i in data){
         getList.add(GetModel.fromJson(i));
       }
@@ -60,18 +61,32 @@ class _DashboardState extends State<Dashboard> {
       ),
       body:Column(
         children: [
-          FutureBuilder(future: getApi(), builder: (context,snapshot){
-            if(!snapshot.hasData){
-              return Center(child: CircularProgressIndicator(strokeWidth: 3,color: Colors.white));
-            }
-            else{
-              return ListView.builder(
-                  itemCount: getList.length,
-                  itemBuilder: (context,index){
-                return ListTile();
-              });
-            }
-          })
+          Expanded(
+            child: FutureBuilder(future: getApi(), builder: (context,snapshot){
+              if(!snapshot.hasData){
+                return Center(child: CircularProgressIndicator(strokeWidth: 3,color: Colors.white));
+              }
+              else{
+                return ListView.builder(
+                    itemCount: getList.length,
+                    itemBuilder: (context,index){
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Title:\n'+getList[index].title.toString()),
+                          Text('Id:\n'+getList[index].id.toString()),
+                        ],
+                      ),
+                    ),
+                  );
+                });
+              }
+            }),
+          )
         ],
       ),
     );
