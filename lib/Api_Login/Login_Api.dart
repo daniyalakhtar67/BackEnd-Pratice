@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
 class LoginApi extends StatefulWidget {
   const LoginApi({super.key});
@@ -13,7 +16,30 @@ class _LoginApiState extends State<LoginApi> {
   TextEditingController pass = TextEditingController();
   bool isloading = false;
   final _key = GlobalKey<FormState>();
-  void login(String email, String password){}
+  void login(String email, String password)async{
+    try{
+      Response response =await post(
+        Uri.parse('https://reqres.in/api/login'),
+        headers: {
+          'Content-Type':'application/json',
+          'x-api-key':'reqres_ffaa3d64c9b447318385e28486d82607',
+        },
+        body: jsonEncode({
+          'email': email,
+          'password': pass,
+        }
+        )
+      );
+      if(response.statusCode==200){
+        print('Account Created Successfully');
+        print(response.body);
+      }else{
+        print('Failed: ${response.body}');
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +89,9 @@ class _LoginApiState extends State<LoginApi> {
             ),
             SizedBox(height: 30),
             InkWell(
-              onTap: (){},
+              onTap: (){
+                login(email.text.toString(), pass.text.toString());
+              },
               child: Container(
                 width: 100,
                 height: 50,
